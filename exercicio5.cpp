@@ -5,38 +5,47 @@
 // preços.
 
 #include <iostream>
+#include <string>
 
 using namespace std;
 
 class Ingresso {
-    private:
-        float valor;
-    public:
-        Ingresso(float valor) {
-            this->valor = valor;
-        }
-        void imprimirValor() {
-            cout << "Valor: " << valor << endl;
-        }
+private:
+    float valor;
+public:
+    float getValor() {
+        return valor;
+    }
+    void setValor(float valor) {
+        this->valor = valor;
+    }
+    void imprimirValor() {
+        cout << "Valor do ingresso: " << valor << endl;
+    }
 };
 
 class IngressoVIP : public Ingresso {
-    private:
-        float valorAdicional;
-    public:
-        IngressoVIP(float valor, float valorAdicional) : Ingresso(valor) {
-            this->valorAdicional = valorAdicional;
-        }
-        float getValor() {
-            return this->valor + valorAdicional;
-        }
+private:
+    float valorAdicional;
+public:
+    float getValorAdicional() {
+        return valorAdicional;
+    }
+    void setValorAdicional(float valorAdicional) {
+        this->valorAdicional = valorAdicional;
+    }
+    float calcularValorVIP() {
+        return getValor() + valorAdicional;
+    }
 };
 
 int main() {
-    Ingresso ingresso(100);
-    IngressoVIP ingressoVIP(100, 50);
+    Ingresso ingresso;
+    ingresso.setValor(10);
     ingresso.imprimirValor();
-    cout << "Valor VIP: " << ingressoVIP.getValor() << endl;
+    IngressoVIP ingressoVIP;
+    ingressoVIP.setValor(10);
+    ingressoVIP.setValorAdicional(5);
+    cout << "Valor do ingresso VIP: " << ingressoVIP.calcularValorVIP() << endl;
     return 0;
 }
-

@@ -7,6 +7,7 @@
 
 #include <iostream>
 #include <string>
+
 using namespace std;
 
 class JogadorFutebol {
@@ -15,8 +16,10 @@ private:
   string posicao;
   string dataNascimento;
   string nacionalidade;
+  int idade;
   float altura;
   float peso;
+  int tempoRestante;
 public:
     void definindoJogador(string nome, string posicao, string dataNascimento, string nacionalidade, float altura, float peso) {
       setNome(nome);
@@ -62,39 +65,55 @@ public:
     void setPeso(float peso) {
       this->peso = peso;
     }
+    float getTempoRestante() {
+      return tempoRestante;
+    }
+    void setTempoRestante(float tempoRestante) {
+      this->tempoRestante = tempoRestante;
+    }
+    int getIdade() {
+      return idade;
+    }
+    void setIdade(int idade) {
+      this->idade = idade;
+    }
     void imprimirDados() {
+      calcularIdade();
+      calcularAposentadoria();
       cout << "Nome: " << nome << endl;
       cout << "Posicao: " << posicao << endl;
       cout << "Data de nascimento: " << dataNascimento << endl;
+      cout << "Idade: " << idade << endl;
       cout << "Nacionalidade: " << nacionalidade << endl;
       cout << "Altura: " << altura << endl;
       cout << "Peso: " << peso << endl;
     }
-    int calcularIdade() {
-      int dia, mes, ano;
-      dia = stoi(dataNascimento.substr(0, 2)); // stoi converte string para inteiro 
-      mes = stoi(dataNascimento.substr(3, 2));
-      ano = stoi(dataNascimento.substr(6, 4));
-      
-      return 2020 - ano;
+    void calcularIdade() {
+      int ano = stoi(dataNascimento.substr(6, 4));
+      this->idade = 2022 - ano;
     }
-    int calcularAposentadoria() {
-      int idade = calcularIdade();
+    void calcularAposentadoria() {
+      calcularIdade();
+      int idade = getIdade();
       if (posicao == "defesa") {
-        return 40 - idade;
+        tempoRestante = 40 - idade;
       } else if (posicao == "meio-campo") {
-        return 38 - idade;
+        tempoRestante = 38 - idade;
       } else if (posicao == "atacante") {
-        return 35 - idade;
+        tempoRestante = 35 - idade;
+      }
+      if (tempoRestante <= 0) {
+        int tempo = tempoRestante * -1;
+        cout << "\nJogador já aposentado à " << tempo << " anos\n";
       }
     }
 };
 
 int main() {
   JogadorFutebol jogador1;
-  jogador1.definindoJogador("Ronaldo", "atacante", "21/09/1976", "Brasileiro", 1.87, 80);
+  jogador1.definindoJogador("Neymar", "atacante", "05/02/1992", "Brasileiro", 1.75, 68.5);
   jogador1.imprimirDados();
-  cout << "Idade: " << jogador1.calcularIdade() << endl;
-  cout << "Aposentadoria: " << jogador1.calcularAposentadoria() << endl;
+  jogador1.definindoJogador("Ronaldo", "atacante", "22/09/1976", "Brasileiro", 1.87, 80.5);
+  jogador1.imprimirDados();
   return 0;
 }

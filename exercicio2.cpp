@@ -11,6 +11,7 @@
 
 #include <iostream>
 #include <string>
+
 using namespace std;
 
 class Empregado {
@@ -35,6 +36,9 @@ public:
     return salarioMensal;
   }
   void setSalarioMensal(float salarioMensal) {
+    if (salarioMensal <= 0) {
+      salarioMensal = 0.0;
+    }
     this->salarioMensal = salarioMensal;
   }
   float getSalarioAnual() {
@@ -67,8 +71,8 @@ int main() {
 
   emp.aumentarSalario(0.1);
 
-  cout << "Salário mensal de " << emp.getPrimeiroNome() << " " << emp.getSobrenome() << " com o aumento de 10%: " << emp.getSalarioMensal() << endl;
-  cout << "Salário anual de " << emp.getPrimeiroNome() << " " << emp.getSobrenome() << " com o aumento de 10%: " << emp.getSalarioAnual() << endl;
+  cout << "Salário mensal de " << emp.getPrimeiroNome() << " " << emp.getSobrenome() << " após o aumento de 10%: " << emp.getSalarioMensal() << endl;
+  cout << "Salário anual de " << emp.getPrimeiroNome() << " " << emp.getSobrenome() << " após o aumento de 10%: " << emp.getSalarioAnual() << endl;
 
   return 0;
 }

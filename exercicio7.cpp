@@ -5,7 +5,7 @@
 // métodos de acesso e impressão para este desconto.
 
 #include <iostream>
-
+#include <string>
 using namespace std;
 
 class Imovel {
@@ -19,6 +19,9 @@ class Imovel {
         }
         string getEndereco() {
             return endereco;
+        }
+        void setEndereco(string endereco) {
+            this->endereco = endereco;
         }
         float getPreco() {
             return preco;
@@ -58,10 +61,34 @@ class Velho : public Imovel {
 
 int main() {
     Imovel imovel("Rua 0", 200);
-    Novo novo("Rua 0", 200, 100);
-    Velho velho("Rua 0", 200, 100);
-    cout << "Novo -> Endereço: " << novo.getEndereco() << " - Preço: " << novo.getPreco() << " - Adicional: " << novo.getValorAdicional() << endl;
-    cout << "Velho -> Endereço: " << velho.getEndereco() << " - Preço: " << velho.getPreco() << " - Desconto: " << velho.getDesconto() << endl;
+    string endereco;
+    float preco;
+
+    cout << "Digite o endereço do imóvel: ";
+    cin >> endereco;
+    imovel.setEndereco(endereco);
+
+    cout << "Digite o preço do imóvel: ";
+    cin >> preco;
+    imovel.setPreco(preco);
+
+    cout << "Digite se o imóvel possui mais de 5 anos (s/n): ";
+    char opcao;
+    cin >> opcao;
+    
+    if (opcao == 's') {
+        float desconto;
+        cout << "Digite o desconto: ";
+        cin >> desconto;
+        Velho velho(imovel.getEndereco(), imovel.getPreco(), desconto);
+        cout << "Endereço: " << velho.getEndereco() << " - Preço: " << velho.getPreco() << " - Desconto: " << velho.getDesconto() << endl;
+    } else {
+        float valorAdicional;
+        cout << "Digite o valor adicional: ";
+        cin >> valorAdicional;
+        Novo novo(imovel.getEndereco(), imovel.getPreco(), valorAdicional);
+        cout << "Endereço: " << novo.getEndereco() << " - Preço: " << novo.getPreco() << " - Adicional: " << novo.getValorAdicional() << endl;
+    }
     return 0;
 }
 
